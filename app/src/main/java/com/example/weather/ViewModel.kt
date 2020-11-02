@@ -5,11 +5,10 @@ import com.example.developtool.DebugLog
 
 class ViewModel
     : DataModel.OnDataReadyCallback {
-    var data = MutableLiveData<List<WeatherData.Location>>()
-    val dataModel = DataModel()
-    fun refresh(): MutableLiveData<List<WeatherData.Location>> {
+    val listData = MutableLiveData<List<WeatherData.Location>>()
+    private val dataModel = DataModel()
+    fun refresh() {
         dataModel.getData(this)
-        return data
     }
 
     override fun OnDataReady(data: List<WeatherData.Location>) {
@@ -17,6 +16,6 @@ class ViewModel
         for (location in data) {
             DebugLog.d(location.locationName)
         }
-        this.data.postValue(data)
+        this.listData.postValue(data)
     }
 }

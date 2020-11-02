@@ -25,16 +25,11 @@
             android:layout_margin="@dimen/card_view_margin"
             android:orientation="vertical">
 
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--            </ImageView>-->
-
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{data.locationName}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,6 +37,7 @@
                 android:id="@+id/weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{data.weatherElement[0].time[0].parameter.parameterName}"
                 app:layout_constraintLeft_toLeftOf="@+id/location"
                 app:layout_constraintTop_toBottomOf="@+id/location" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,9 +14,8 @@ import com.example.weather.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    private var weatherDataList = mutableListOf<WeatherData.Location>()
     private val mViewModel = ViewModel()
-    val mAdapter = WeatherAdapter(weatherDataList)
+    private val mAdapter = WeatherAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         DebugLog.d("onCreate")
         super.onCreate(savedInstanceState)
@@ -35,17 +34,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun getWeatherData(binding: ActivityMainBinding) {
         if (isConnected()) {
-            mViewModel.refresh().observe(this, Observer {
+            mViewModel.refresh()
+            mViewModel.listData.observe(this, Observer {
                 DebugLog.d("update, it=$it")
-                weatherDataList.clear()
-                weatherDataList.addAll(it)
                 binding.hintText.visibility = View.INVISIBLE
                 binding.container.isRefreshing = false
+                mAdapter.listData = it
                 mAdapter.notifyDataSetChanged()
             })
         } else {
             DebugLog.d("no internet")
-            weatherDataList.clear()
             mAdapter.notifyDataSetChanged()
             binding.container.isRefreshing = false
             binding.hintText.visibility = View.VISIBLE
