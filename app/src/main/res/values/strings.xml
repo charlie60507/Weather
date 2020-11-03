@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="disconnected_text">No Internet</string>
+    <string name="sunny">晴天</string>
+    <string name="mostly_clear">晴時多雲</string>
+    <string name="partly_clear">多雲時晴</string>
+    <string name="partly_cloudy">多雲</string>
+    <string name="mostly_cloudy">多雲時陰</string>
+    <string name="mostly_cloudy_1">陰時多雲</string>
+    <string name="cloudy">陰天</string>
+    <string name="cloud_rain">陰短暫雨</string>
 </resources>

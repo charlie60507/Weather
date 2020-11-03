@@ -25,21 +25,30 @@
             android:layout_margin="@dimen/card_view_margin"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="@dimen/card_view_icon_size"
+                android:layout_height="@dimen/card_view_icon_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{data.locationName}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/weather_icon"
+                app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+                app:layout_constraintTop_toTopOf="@+id/weather_icon" />
 
             <TextView
                 android:id="@+id/weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{data.weatherElement[0].time[0].parameter.parameterName}"
-                app:layout_constraintLeft_toLeftOf="@+id/location"
-                app:layout_constraintTop_toBottomOf="@+id/location" />
+                app:layout_constraintBottom_toBottomOf="@+id/location"
+                app:layout_constraintLeft_toRightOf="@+id/location"
+                app:layout_constraintTop_toTopOf="@+id/location" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
