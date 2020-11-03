@@ -14,6 +14,11 @@ class WeatherAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(location: WeatherData.Location) {
             binding.data = location
+            val drawable = WeatherIconUtil.getIconFromWeather(
+                binding.root.context,
+                location.weatherElement[0].time[0].parameter.parameterName
+            )
+            binding.weatherIcon.setImageDrawable(drawable)
             binding.executePendingBindings()
         }
     }
