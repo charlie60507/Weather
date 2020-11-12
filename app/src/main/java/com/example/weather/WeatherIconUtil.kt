@@ -13,7 +13,7 @@ object WeatherIconUtil {
             context.getString(R.string.cloudy), context.getString(R.string.mostly_cloudy),
             context.getString(R.string.mostly_cloudy_1), context.getString(R.string.partly_cloudy)
             -> return context.getDrawable(R.drawable.cloud)
-            context.getString(R.string.cloud_rain)
+            context.getString(R.string.cloud_rain), context.getString(R.string.cloud_short_rain)
             -> return context.getDrawable(R.drawable.rain)
         }
         return null
