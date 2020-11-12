@@ -1,5 +1,8 @@
 package com.example.weather
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +22,42 @@ class WeatherAdapter :
                 location.weatherElement[0].time[0].parameter.parameterName
             )
             binding.weatherIcon.setImageDrawable(drawable)
+            binding.favoriteIcon.setOnClickListener {
+                DebugLog.d("btn click")
+                setFavoriteIcon(
+                    binding.root.context,
+                    location.locationName,
+                    true
+                )
+            }
+
+            // change favorite icon by preference
+            setFavoriteIcon(
+                binding.root.context,
+                location.locationName,
+                false
+            )
             binding.executePendingBindings()
+        }
+
+        private fun setFavoriteIcon(context: Context, name: String, isStateChange: Boolean) {
+            val sharePref = context.getSharedPreferences("test", MODE_PRIVATE)
+            val isFavorite = sharePref.getBoolean(name, false)
+            binding.favoriteIcon.setImageDrawable(
+                binding.root.context.getDrawable(
+                    // remove favorite by pressing icon || init icon to not favorite
+                    if ((isStateChange && isFavorite) || (!isStateChange && !isFavorite)) {
+                        R.drawable.normal_star
+                    } else {
+                        R.drawable.selected_star
+                    }
+                )
+            )
+            if (isStateChange) {
+                val editor: SharedPreferences.Editor = sharePref.edit()
+                editor.putBoolean(name, !sharePref.getBoolean(name, false))
+                editor.apply()
+            }
         }
     }
 

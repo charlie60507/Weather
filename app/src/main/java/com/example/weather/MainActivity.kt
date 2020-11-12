@@ -1,63 +1,74 @@
 package com.example.weather
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.developtool.DebugLog
-import com.example.weather.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import kotlinx.android.synthetic.main.my_activity.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val mViewModel = ViewModel()
-    private val mAdapter = WeatherAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        DebugLog.d("onCreate")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.my_activity)
+        setupViewPager(viewpager)
+        tabs.setupWithViewPager(viewpager)
+        viewpager.addOnPageChangeListener(
+            object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
 
-        // using data binding
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
-        binding.viewModel = mViewModel
-        binding.container.setOnRefreshListener { getWeatherData(binding) }
-        binding.recyclerView.adapter = mAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        getWeatherData(binding)
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {}
+            }
+        )
     }
 
-    private fun getWeatherData(binding: ActivityMainBinding) {
-        if (isConnected()) {
-            mViewModel.refresh()
-            mViewModel.listData.observe(this, Observer {
-                DebugLog.d("update, it=$it")
-                binding.hintText.visibility = View.INVISIBLE
-                binding.container.isRefreshing = false
-                mAdapter.listData = it
-                mAdapter.notifyDataSetChanged()
-            })
-        } else {
-            DebugLog.d("no internet")
-            mAdapter.notifyDataSetChanged()
-            binding.container.isRefreshing = false
-            binding.hintText.visibility = View.VISIBLE
+    private fun setupViewPager(viewpager: ViewPager) {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(WeatherFragment.newInstance(), getString(R.string.app_name))
+        adapter.addFragment(SettingFragment.newInstance(), getString(R.string.settings_tab_text))
+        viewpager.adapter = adapter
+    }
+
+    fun getViewPagerAdapter(): ViewPagerAdapter {
+        return viewpager.adapter as ViewPagerAdapter
+    }
+
+    class ViewPagerAdapter(fm: FragmentManager) :
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        private val mFragmentList = ArrayList<Fragment>()
+        private val mFragmentTitleList = ArrayList<String>()
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList[position]
+        }
+
+        override fun getCount(): Int {
+            return mFragmentList.size
+        }
+
+        fun addFragment(fragment: Fragment, title: String) {
+            mFragmentList.add(fragment)
+            mFragmentTitleList.add(title)
+        }
+
+        fun getFragmentByTitle(title: String): Fragment {
+            val idx = mFragmentTitleList.indexOf(title)
+            return mFragmentList[idx]
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return mFragmentTitleList[position]
         }
     }
 
-    private fun isConnected(): Boolean {
-        val cm: ConnectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = cm.activeNetworkInfo
-        if (networkInfo != null) {
-            return networkInfo.isConnected
-        }
-        return false
-    }
 
 }
