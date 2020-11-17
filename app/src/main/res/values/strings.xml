@@ -8,7 +8,8 @@
     <string name="mostly_cloudy">多雲時陰</string>
     <string name="mostly_cloudy_1">陰時多雲</string>
     <string name="cloudy">陰天</string>
-    <string name="cloud_short_rain">陰短暫雨</string>
-    <string name="cloud_rain">陰有雨</string>
+    <string name="cloudy_short_rain">陰短暫雨</string>
+    <string name="mostly_cloudy_short_rain">多雲短暫雨</string>
+    <string name="cloudy_rain">陰有雨</string>
     <string name="settings_tab_text">settings</string>
 </resources>
