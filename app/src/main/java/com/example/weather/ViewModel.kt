@@ -7,8 +7,8 @@ class ViewModel
     : DataModel.OnDataReadyCallback {
     val listData = MutableLiveData<List<WeatherData.Location>>()
     private val dataModel = DataModel()
-    fun refresh() {
-        dataModel.getData(this)
+    fun refresh(favoriteMap: MutableMap<String, Boolean>) {
+        dataModel.getData(favoriteMap, this)
     }
 
     override fun OnDataReady(data: List<WeatherData.Location>) {
@@ -16,6 +16,6 @@ class ViewModel
         for (location in data) {
             DebugLog.d(location.locationName)
         }
-        this.listData.postValue(data)
+        listData.postValue(data)
     }
 }
