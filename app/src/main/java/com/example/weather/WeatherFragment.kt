@@ -17,9 +17,10 @@ import kotlinx.android.synthetic.main.weather_fragment.*
 
 class WeatherFragment : Fragment() {
     private val mViewModel = ViewModel()
-    private val mAdapter = WeatherAdapter()
     private var _binding: WeatherFragmentBinding? = null
     private val binding get() = _binding!!
+    lateinit var weatherAdapter: WeatherAdapter
+    var favoriteMap = mutableMapOf<String, Boolean>()
 
     companion object {
         fun newInstance(): WeatherFragment {
@@ -41,9 +42,20 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         container.setOnRefreshListener { getWeatherData() }
-        recyclerView.adapter = mAdapter
+        loadPreference(view.context)
+        weatherAdapter = WeatherAdapter(this)
+        recyclerView.adapter = weatherAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context as Activity)
         getWeatherData()
+    }
+
+    private fun loadPreference(context: Context) {
+        val sharePref = context.getSharedPreferences("test", Context.MODE_PRIVATE)
+        if (sharePref.all != null) { // if exist sharePref, parse value to favoriteMap
+            for (pair in sharePref.all) {
+                favoriteMap[pair.key] = sharePref.getBoolean(pair.key, false)
+            }
+        }
     }
 
     private fun getWeatherData() {
@@ -54,15 +66,15 @@ class WeatherFragment : Fragment() {
                 recyclerView.visibility = View.VISIBLE
                 hint_text.visibility = View.INVISIBLE
                 container.isRefreshing = false
-                mAdapter.listData = it
-                mAdapter.notifyDataSetChanged()
+                weatherAdapter.listData = it
+                weatherAdapter.notifyDataSetChanged()
             })
         } else {
             DebugLog.d("no internet")
             recyclerView.visibility = View.INVISIBLE
             hint_text.visibility = View.VISIBLE
             container.isRefreshing = false
-            mAdapter.notifyDataSetChanged()
+            weatherAdapter.notifyDataSetChanged()
         }
     }
 

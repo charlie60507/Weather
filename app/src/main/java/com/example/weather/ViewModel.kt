@@ -16,6 +16,6 @@ class ViewModel
         for (location in data) {
             DebugLog.d(location.locationName)
         }
-        this.listData.postValue(data)
+        listData.postValue(data)
     }
 }
