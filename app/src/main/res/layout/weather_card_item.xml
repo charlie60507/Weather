@@ -29,6 +29,7 @@
                 android:id="@+id/weather_icon"
                 android:layout_width="@dimen/card_view_weather_icon_size"
                 android:layout_height="@dimen/card_view_weather_icon_size"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,30 +37,28 @@
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="@{data.locationName}"
-                app:layout_constraintBottom_toBottomOf="@+id/weather_icon"
                 app:layout_constraintLeft_toRightOf="@+id/weather_icon"
-                app:layout_constraintTop_toTopOf="@+id/weather_icon" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/weather"
+                android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.weatherElement[0].time[0].parameter.parameterName}"
-                app:layout_constraintBottom_toBottomOf="@+id/location"
-                app:layout_constraintLeft_toRightOf="@+id/location"
-                app:layout_constraintTop_toTopOf="@+id/location" />
+                android:text="@{`Time: ` + data.weatherElement[0].time[0].startTime.split(` `)[1] + ` ~ ` + data.weatherElement[0].time[0].endTime.split(` `)[1]}"
+                app:layout_constraintLeft_toLeftOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/location" />
 
             <ImageView
                 android:id="@+id/favorite_icon"
                 android:layout_width="@dimen/card_view_favorite_icon_size"
                 android:layout_height="@dimen/card_view_favorite_icon_size"
                 android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="@+id/weather"
-                app:layout_constraintLeft_toRightOf="@+id/weather"
-                app:layout_constraintTop_toTopOf="@+id/weather" />
-
-<!--            android:src="@drawable/favorite_selector"-->
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/app_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

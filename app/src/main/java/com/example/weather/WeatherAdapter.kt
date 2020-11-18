@@ -18,6 +18,15 @@ class WeatherAdapter(var fragment: WeatherFragment) :
         private val binding: WeatherCardItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(location: WeatherData.Location) {
+            // set long click
+            binding.root.setOnLongClickListener {
+                DebugLog.d("longClick")
+                val a = InfoDialogFragment.newInstance(location)
+                fragment.fragmentManager?.let {
+                    a.show(it, "InfoDialogFragment")
+                }
+                true
+            }
             binding.data = location
             val drawable = WeatherIconUtil.getIconFromWeather(
                 binding.root.context,
