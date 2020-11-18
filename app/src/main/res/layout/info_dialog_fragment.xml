@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.weather.WeatherData.Location" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_view_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Time: ` + data.weatherElement[0].time[0].startTime.split(` `)[1] + ` ~ ` + data.weatherElement[0].time[0].endTime.split(` `)[1]}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Weather: ` + data.weatherElement[0].time[0].parameter.parameterName}"
+            app:layout_constraintLeft_toLeftOf="@+id/time_1"
+            app:layout_constraintTop_toBottomOf="@+id/time_1" />
+
+        <TextView
+            android:id="@+id/PoP_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Probability of precipitation: ` + data.weatherElement[1].time[0].parameter.parameterName + ` %`}"
+            app:layout_constraintLeft_toLeftOf="@+id/weather_1"
+            app:layout_constraintTop_toBottomOf="@+id/weather_1" />
+
+        <TextView
+            android:id="@+id/temperature_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Temperature: ` + data.weatherElement[2].time[0].parameter.parameterName + ` ~ ` +  data.weatherElement[4].time[0].parameter.parameterName + ` C`}"
+            app:layout_constraintLeft_toLeftOf="@+id/PoP_1"
+            app:layout_constraintTop_toBottomOf="@+id/PoP_1" />
+
+        <TextView
+            android:id="@+id/time_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Time: ` + data.weatherElement[0].time[1].startTime.split(` `)[1] + ` ~ ` + data.weatherElement[0].time[1].endTime.split(` `)[1]}"
+            app:layout_constraintLeft_toLeftOf="@+id/temperature_1"
+            app:layout_constraintTop_toBottomOf="@+id/temperature_1" />
+
+        <TextView
+            android:id="@+id/weather_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Weather: ` + data.weatherElement[0].time[1].parameter.parameterName}"
+            app:layout_constraintLeft_toLeftOf="@+id/time_2"
+            app:layout_constraintTop_toBottomOf="@+id/time_2" />
+
+        <TextView
+            android:id="@+id/PoP_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Probability of precipitation: ` + data.weatherElement[1].time[1].parameter.parameterName + ` %`}"
+            app:layout_constraintLeft_toLeftOf="@+id/weather_2"
+            app:layout_constraintTop_toBottomOf="@+id/weather_2" />
+
+        <TextView
+            android:id="@+id/temperature_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Temperature: ` + data.weatherElement[2].time[1].parameter.parameterName + ` ~ ` +  data.weatherElement[4].time[1].parameter.parameterName + ` C`}"
+            app:layout_constraintLeft_toLeftOf="@+id/PoP_2"
+            app:layout_constraintTop_toBottomOf="@+id/PoP_2" />
+
+        <TextView
+            android:id="@+id/time_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Time: ` + data.weatherElement[0].time[1].startTime.split(` `)[1] + ` ~ ` + data.weatherElement[0].time[1].endTime.split(` `)[1]}"
+            app:layout_constraintLeft_toLeftOf="@+id/temperature_2"
+            app:layout_constraintTop_toBottomOf="@+id/temperature_2" />
+
+        <TextView
+            android:id="@+id/weather_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Weather: ` + data.weatherElement[0].time[1].parameter.parameterName}"
+            app:layout_constraintLeft_toLeftOf="@+id/time_3"
+            app:layout_constraintTop_toBottomOf="@+id/time_3" />
+
+        <TextView
+            android:id="@+id/PoP_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Probability of precipitation: ` + data.weatherElement[1].time[1].parameter.parameterName + ` %`}"
+            app:layout_constraintLeft_toLeftOf="@+id/weather_3"
+            app:layout_constraintTop_toBottomOf="@+id/weather_3" />
+
+        <TextView
+            android:id="@+id/temperature_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Temperature: ` + data.weatherElement[2].time[1].parameter.parameterName + ` ~ ` +  data.weatherElement[4].time[1].parameter.parameterName + ` C`}"
+            app:layout_constraintLeft_toLeftOf="@+id/PoP_3"
+            app:layout_constraintTop_toBottomOf="@+id/PoP_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

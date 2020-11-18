@@ -37,4 +37,8 @@ object WeatherData {
         return Gson().fromJson(json, Info::class.java)
     }
 
+    fun parseJsonToLocation(json: String?): Location {
+        return Gson().fromJson(json, Location::class.java)
+    }
+
 }
