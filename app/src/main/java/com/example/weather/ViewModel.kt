@@ -5,10 +5,12 @@ import com.example.developtool.DebugLog
 
 class ViewModel
     : DataModel.OnDataReadyCallback {
-    val listData = MutableLiveData<List<WeatherData.Location>>()
+    private val listData = MutableLiveData<List<WeatherData.Location>>()
     private val dataModel = DataModel()
-    fun refresh(favoriteMap: MutableMap<String, Boolean>) {
+
+    fun refresh(favoriteMap: MutableMap<String, Boolean>): MutableLiveData<List<WeatherData.Location>> {
         dataModel.getData(favoriteMap, this)
+        return listData
     }
 
     override fun OnDataReady(data: List<WeatherData.Location>) {

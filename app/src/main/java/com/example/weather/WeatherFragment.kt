@@ -60,8 +60,7 @@ class WeatherFragment : Fragment() {
 
     private fun getWeatherData() {
         if (isConnected()) {
-            mViewModel.refresh(favoriteMap)
-            mViewModel.listData.observe(this, Observer {
+            mViewModel.refresh(favoriteMap).observe(this, Observer {
                 DebugLog.d("update, it=$it")
                 recyclerView.visibility = View.VISIBLE
                 hint_text.visibility = View.INVISIBLE
