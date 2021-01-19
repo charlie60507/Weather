@@ -16,17 +16,19 @@ import com.example.weather.databinding.WeatherFragmentBinding
 import kotlinx.android.synthetic.main.weather_fragment.*
 
 class WeatherFragment : Fragment() {
+    companion object {
+        const val PREFERENCE_NAME = "test"
+
+        fun newInstance(): WeatherFragment {
+            return WeatherFragment()
+        }
+    }
+
     private val mViewModel = ViewModel()
     private var _binding: WeatherFragmentBinding? = null
     private val binding get() = _binding!!
     lateinit var weatherAdapter: WeatherAdapter
     var favoriteMap = mutableMapOf<String, Boolean>()
-
-    companion object {
-        fun newInstance(): WeatherFragment {
-            return WeatherFragment()
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +52,7 @@ class WeatherFragment : Fragment() {
     }
 
     private fun loadPreference(context: Context) {
-        val sharePref = context.getSharedPreferences("test", Context.MODE_PRIVATE)
+        val sharePref = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         if (sharePref.all != null) { // if exist sharePref, parse value to favoriteMap
             for (pair in sharePref.all) {
                 favoriteMap[pair.key] = sharePref.getBoolean(pair.key, false)
