@@ -10,6 +10,7 @@
     <string name="cloudy">陰天</string>
     <string name="cloudy_short_rain">陰短暫雨</string>
     <string name="mostly_cloudy_short_rain">多雲短暫雨</string>
+    <string name="cloudy_short_temp_rain">陰短暫陣雨</string>
     <string name="cloudy_rain">陰有雨</string>
     <string name="settings_tab_text">settings</string>
 </resources>

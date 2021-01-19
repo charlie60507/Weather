@@ -5,25 +5,28 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.developtool.DebugLog
 import com.example.weather.databinding.WeatherCardItemBinding
+import com.example.weather.data.Location
 
 class WeatherAdapter(var fragment: WeatherFragment) :
     RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
-    var listData: List<WeatherData.Location> = emptyList()
+
+    var listData: List<Location> = emptyList()
 
     class ViewHolder(
         var fragment: WeatherFragment,
         private val binding: WeatherCardItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(location: WeatherData.Location) {
+        fun bind(location: Location) {
             // set long click
             binding.root.setOnLongClickListener {
                 DebugLog.d("longClick")
-                val a = InfoDialogFragment.newInstance(location)
+                val infoFragment = InfoDialogFragment.newInstance(location)
                 fragment.fragmentManager?.let {
-                    a.show(it, "InfoDialogFragment")
+                    infoFragment.show(it, "InfoDialogFragment")
                 }
                 true
             }
@@ -41,10 +44,9 @@ class WeatherAdapter(var fragment: WeatherFragment) :
 
             // change favorite icon by preference
             binding.favoriteIcon.setImageDrawable(
-                binding.root.context.getDrawable(
-                    if (fragment.favoriteMap[location.locationName] != null
-                        && fragment.favoriteMap[location.locationName]!!
-                    ) {
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    if (fragment.favoriteMap[location.locationName] == true) {
                         R.drawable.selected_star
                     } else {
                         R.drawable.normal_star
@@ -55,7 +57,8 @@ class WeatherAdapter(var fragment: WeatherFragment) :
         }
 
         private fun setPreference(context: Context, locationName: String) {
-            val sharePref = context.getSharedPreferences("test", MODE_PRIVATE)
+            val sharePref =
+                context.getSharedPreferences(WeatherFragment.PREFERENCE_NAME, MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sharePref.edit()
             val result = !sharePref.getBoolean(locationName, false)
             editor.putBoolean(locationName, result)
