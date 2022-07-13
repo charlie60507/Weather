@@ -5,14 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.developtool.DebugLog
-import com.example.weather.databinding.WeatherFragmentBinding
 import kotlinx.android.synthetic.main.weather_fragment.*
 
 class WeatherFragment : Fragment() {
@@ -25,8 +24,6 @@ class WeatherFragment : Fragment() {
     }
 
     private val mViewModel = ViewModel()
-    private var _binding: WeatherFragmentBinding? = null
-    private val binding get() = _binding!!
     lateinit var weatherAdapter: WeatherAdapter
     var favoriteMap = mutableMapOf<String, Boolean>()
 
@@ -34,11 +31,8 @@ class WeatherFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = WeatherFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = mViewModel
-        return binding.root
+    ): View {
+        return inflater.inflate(R.layout.weather_fragment, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +57,7 @@ class WeatherFragment : Fragment() {
     private fun getWeatherData() {
         if (isConnected()) {
             mViewModel.refresh(favoriteMap).observe(this, Observer {
-                DebugLog.d("update, it=$it")
+                Log.d(javaClass.simpleName, "update, it=$it")
                 recyclerView.visibility = View.VISIBLE
                 hint_text.visibility = View.INVISIBLE
                 container.isRefreshing = false
@@ -71,7 +65,7 @@ class WeatherFragment : Fragment() {
                 weatherAdapter.notifyDataSetChanged()
             })
         } else {
-            DebugLog.d("no internet")
+            Log.d(javaClass.simpleName, "no internet")
             recyclerView.visibility = View.INVISIBLE
             hint_text.visibility = View.VISIBLE
             container.isRefreshing = false

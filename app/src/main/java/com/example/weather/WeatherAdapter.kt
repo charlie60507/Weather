@@ -3,11 +3,11 @@ package com.example.weather
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.developtool.DebugLog
 import com.example.weather.databinding.WeatherCardItemBinding
 import com.example.weather.data.Location
 
@@ -23,7 +23,7 @@ class WeatherAdapter(var fragment: WeatherFragment) :
         fun bind(location: Location) {
             // set long click
             binding.root.setOnLongClickListener {
-                DebugLog.d("longClick")
+                Log.d(javaClass.simpleName, "longClick")
                 val infoFragment = InfoDialogFragment.newInstance(location)
                 fragment.fragmentManager?.let {
                     infoFragment.show(it, "InfoDialogFragment")
@@ -37,7 +37,7 @@ class WeatherAdapter(var fragment: WeatherFragment) :
             )
             binding.weatherIcon.setImageDrawable(drawable)
             binding.favoriteIcon.setOnClickListener {
-                DebugLog.d("btn click")
+                Log.d(javaClass.simpleName, "btn click")
                 setPreference(binding.root.context, location.locationName)
                 fragment.weatherAdapter.notifyDataSetChanged()
             }
@@ -69,7 +69,7 @@ class WeatherAdapter(var fragment: WeatherFragment) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        DebugLog.d("onCreateViewHolder")
+        Log.d(javaClass.simpleName, "onCreateViewHolder")
         val binding =
             WeatherCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(fragment, binding)
@@ -80,7 +80,7 @@ class WeatherAdapter(var fragment: WeatherFragment) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        DebugLog.d("onBindViewHolder")
+        Log.d(javaClass.simpleName, "onBindViewHolder")
         holder.bind(listData[position])
     }
 

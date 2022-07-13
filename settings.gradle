@@ -1,3 +1,2 @@
 rootProject.name='Weather'
-include ':app', ':developtool'
-project(':developtool').projectDir = new File(settingsDir, '../developtool')
+include ':app'
