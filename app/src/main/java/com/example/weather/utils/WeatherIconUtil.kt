@@ -1,7 +1,8 @@
-package com.example.weather
+package com.example.weather.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import com.example.weather.R
 
 object WeatherIconUtil {
     fun getIconFromWeather(context: Context, weather: String): Drawable? {
@@ -13,7 +14,9 @@ object WeatherIconUtil {
             context.getString(R.string.cloudy), context.getString(R.string.mostly_cloudy),
             context.getString(R.string.mostly_cloudy_1), context.getString(R.string.partly_cloudy)
             -> return context.getDrawable(R.drawable.cloud)
-            context.getString(R.string.cloudy_rain), context.getString(R.string.cloudy_short_rain), context.getString(R.string.mostly_cloudy_short_rain), context.getString(R.string.cloudy_short_temp_rain)
+            context.getString(R.string.cloudy_rain), context.getString(R.string.cloudy_short_rain), context.getString(
+                R.string.mostly_cloudy_short_rain
+            ), context.getString(R.string.cloudy_short_temp_rain)
             -> return context.getDrawable(R.drawable.rain)
         }
         return null

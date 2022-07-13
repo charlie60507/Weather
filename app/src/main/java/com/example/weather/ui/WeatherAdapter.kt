@@ -1,4 +1,4 @@
-package com.example.weather
+package com.example.weather.ui
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weather.R
 import com.example.weather.databinding.WeatherCardItemBinding
 import com.example.weather.data.Location
+import com.example.weather.utils.WeatherIconUtil
 
 class WeatherAdapter(var fragment: WeatherFragment) :
     RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {

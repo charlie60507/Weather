@@ -1,12 +1,9 @@
-package com.example.weather
+package com.example.weather.models
 
 import android.util.Log
+import com.example.weather.api.RetrofitManager
 import com.example.weather.data.Location
 import com.example.weather.data.WeatherData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,6 +60,9 @@ class DataModel {
                         }
                     }
                 }
+
+
+
                 callback(favoriteList + others)
             }
         })
